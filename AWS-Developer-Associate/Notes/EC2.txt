@@ -1,0 +1,15 @@
+EC2 Instance Types
+	on Demand pay as consumption 
+	Reserved >= 1 year
+		Scheduled (launced with in a time frame)
+		Convertible
+	Spot (Bid for instance)
+	Dedicated
+		Separate Hardware
+		Seperate physical Server
+
+AMI are customized EC2 instances
+AMI are built for a specific AWS region
+
+M instance types are balanced
+T2/T3 instance types are “burstable”

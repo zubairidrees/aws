@@ -1,0 +1,101 @@
+replication in 3 AZ
+each item max 400kb
+can have null ,List map set
+
+primary key 
+	partion key 
+	partition key + sort key (range key)
+		data is group by parition key
+
+WCU
+no of objects * ceil(data in KB)
+
+we write 6 objects per seconds of 4.5KB = 6*5 = 30WCU
+
+write 120 objects per minute of 2 KB
+120/60 *2
+
+RCU
+	Strongly consistent read (SCR) 
+ 	Eventually Consistant Read (ECR)
+	
+	one RCU represents one SCR per second upto 4 KB
+
+	one RCU represents two ECR per second upto 4 KB
+
+	ex.
+	10 SCR per seconds of 4 KB each
+	10 * 4/4 = 10 RCU
+
+	16 ECR per seconds of 12 KB each
+
+	(16/2) * (12/4) = 24 RCU
+
+	10 SCR per seconds of 6 KB
+
+	10 * 8/4 = 20 RCU (inbrement by 4)
+
+to compute total partition
+	by capicity : total rcu/3000 + total wcu/1000
+	by size	: total size / 10 GB
+	total partition = ceiling(max(capacity,size))
+
+BatchWriteItem
+up to 25 putitem or deleteitem in one call
+up to 16 MB of data written
+uo to 400 kb of data per item
+
+
+ProjectionExpression to fetch certain attributes
+
+BatchGetItem
+	max 100 items
+	up to 16 MB data
+
+Query
+	partition key has support of only = operator
+	sortkey has (= < > <= >= between, begin)
+	FilterExpression (client side)	
+Scan/Query return up to 1 MB data
+
+	can query on LSI or GSI
+
+LSI (alternation range key)
+	up to 5 LSI per table
+	must be String Number Binary
+	LSI can only defined at table creation time
+	it's just like index any column other than partition key and sort key
+
+GSI
+	just like new table
+	define a different partition & sort key 
+	can be editable
+	partition key and sort key of orignal table must be projected
+	has different RCU & WCU
+	can impact main table
+
+DAX (cache)
+5 minutes TTL by default
+up to 10 modes in cluster (min 3 recommemded)
+
+Dynamodb Stream
+	24 hour data retention 			
+	can acheive cross region relpication using stream
+	attach lambda function on create/update or delete
+
+Dynamodb TTL
+	per row data will be deleted as per configured policy need to enable TTL and add date column
+
+Dynamodb specific cli commands
+--projection-expression
+--filter-expression
+
+all services have below cli commands
+--page-size
+--max-items
+--starting-token
+
+Transactional dynamodb opertions consumes 2x RCU/WCU
+
+
+

@@ -1,0 +1,10 @@
+KMS can only encrypt ypyo max 4KB data per call
+data more than 4KB use envelope encrption/encryption SDK/ GenerateDataKey API
+
+SSM Parameter Store
+Lamdba API 
+	GetParameters
+	GetParametersByPath
+
+CLI
+aws ssm get-paramters --names [name of paramter] --with decryption	

@@ -1,0 +1,19 @@
+lambda function default timeout is 3s max 300s
+memory 128 MB to 3008MB (64 MB increment)
+Concurrency up 1000 execution (can be increased using ticket)
+Disk capacity in function container (in /tmp) 512 MB
+
+Deployment 
+50 MB --compressed
+250 MB uncompressed
+
+environment variables max size 4KB
+
+function versions are immutable
+$LATEST is modifiedable
+we can create alias of version that can be editable
+
+
+
+
+

@@ -1,0 +1,5 @@
+Dimension is an attribute in Cloudwatch
+we can add 10 dimensions per metric
+
+EC2 instance has default metrics every 5 minutes
+for detailed metrics (extra cost) we can have 1 minute metrics
